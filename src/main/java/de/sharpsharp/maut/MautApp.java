@@ -11,7 +11,7 @@ public class MautApp {
     public static void main(String[] args) {
         var latenz = Duration.ofMillis(Long.getLong("maut.batch.latenz", 3000));
         var anwendung = new MautAnwendung(new VerzoegerteVerarbeitung(latenz));
-        var server = WebServer.starte(anwendung, 7070);
+        var server = WebServer.starte(anwendung, 7272);
         System.out.println("Kundenportal:  http://localhost:" + server.port() + "/portal.html");
         System.out.println("Backend:       http://localhost:" + server.port() + "/backend.html");
         System.out.println("KM-GUI:        http://localhost:" + server.port() + "/km.html");

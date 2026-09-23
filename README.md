@@ -22,7 +22,7 @@ Proxy oder ohne Internet Chrome vorher installieren.
 | `mvn verify` | zusätzlich E2E-Tests über die GUI | + 15–20 s |
 | `mvn verify -De2e.sichtbar=true` | E2E mit sichtbarem Browser | |
 | `mvn verify -Dmaut.batch.latenz=5000` | E2E mit langsamerem Batch | |
-| `mvn compile exec:java` | Anwendung starten, dann http://localhost:7070/portal.html | |
+| `mvn compile exec:java` | Anwendung starten, dann http://localhost:7272/portal.html | |
 
 ## Eine Spezifikation, drei Ausführungswege
 
