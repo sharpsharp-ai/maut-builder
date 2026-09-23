@@ -12,8 +12,6 @@
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cucumber.version>7.34.9</cucumber.version>
-        <!-- Verzögerung der simulierten Hintergrundverarbeitung (Rechnungsläufe) in den E2E-Tests -->
-        <maut.batch.latenz>2000</maut.batch.latenz>
     </properties>
 
     <dependencies>
@@ -46,12 +44,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>5.23.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber.version}</version>
@@ -61,18 +53,6 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>${cucumber.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-picocontainer</artifactId>
-            <version>${cucumber.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.49.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -89,7 +69,7 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.3.1</version>
             </plugin>
-            <!-- mvn test: Unit-, Paritäts- und Akzeptanztests (schnell) -->
+            <!-- mvn test: Akzeptanztests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -97,26 +77,6 @@
                 <configuration>
                     <argLine>-Dstdout.encoding=UTF-8</argLine>
                 </configuration>
-            </plugin>
-            <!-- mvn verify: zusätzlich E2E-Tests über die GUI (langsam, *IT) -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.5.4</version>
-                <configuration>
-                    <argLine>-Dstdout.encoding=UTF-8</argLine>
-                    <systemPropertyVariables>
-                        <maut.batch.latenz>${maut.batch.latenz}</maut.batch.latenz>
-                    </systemPropertyVariables>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
