@@ -57,6 +57,6 @@ public class KundenszenarioBuilder {
         if (lauf.status() != RechnungslaufStatus.GEBUCHT) {
             throw new IllegalStateException("Builder braucht MautAnwendung.mitSofortigerVerarbeitung()");
         }
-        return anwendung.abrechnung().rechnungenVon(kundennummer).getFirst().nummer();
+        return anwendung.abrechnung().rechnungenVon(kundennummer).get(0).nummer();
     }
 }

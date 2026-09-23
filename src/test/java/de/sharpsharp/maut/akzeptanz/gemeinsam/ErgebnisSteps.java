@@ -33,7 +33,7 @@ public class ErgebnisSteps {
     public void erhaeltEineOffeneSofortrechnungMitGuthaben(BigDecimal guthaben) {
         var sofortrechnungen = sofortrechnungen();
         assertThat(sofortrechnungen, hasSize(1));
-        var sofortrechnung = sofortrechnungen.getFirst();
+        var sofortrechnung = sofortrechnungen.get(0);
         assertThat(sofortrechnung.status(), is(Rechnungsstatus.OFFEN));
         assertThat(sofortrechnung.summe(), equalTo(Betrag.euro(guthaben).negiert()));
     }

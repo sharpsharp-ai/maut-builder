@@ -10,7 +10,7 @@ und der Kunde erhält eine Sofortrechnung mit Guthaben.
 
 ## Voraussetzungen
 
-Java 21 und Maven. Für die E2E-Tests zusätzlich Google Chrome. Fehlt Chrome, lädt der
+Java 17 und Maven. Für die E2E-Tests zusätzlich Google Chrome. Fehlt Chrome, lädt der
 Selenium Manager beim ersten Lauf automatisch eine passende Version herunter; in Netzen mit
 Proxy oder ohne Internet Chrome vorher installieren.
 

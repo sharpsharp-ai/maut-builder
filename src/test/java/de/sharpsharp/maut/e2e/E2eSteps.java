@@ -60,7 +60,7 @@ public class E2eSteps {
                 .filter(zeile -> zeile.art().equals("SOFORTRECHNUNG"))
                 .toList();
         assertThat(sofortrechnungen, hasSize(1));
-        assertThat(sofortrechnungen.getFirst().status(), is("OFFEN"));
-        assertThat(sofortrechnungen.getFirst().betrag(), is(alsAnzeige(guthaben.negate())));
+        assertThat(sofortrechnungen.get(0).status(), is("OFFEN"));
+        assertThat(sofortrechnungen.get(0).betrag(), is(alsAnzeige(guthaben.negate())));
     }
 }
