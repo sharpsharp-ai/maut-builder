@@ -1,0 +1,51 @@
+/* Drei Systeme, eine Grundgestaltung. Jedes System erkennt man an seiner Kopfleiste. */
+:root {
+    --papier: #f5f6f4;
+    --flaeche: #ffffff;
+    --text: #1d2327;
+    --leise: #5d676e;
+    --linie: #d5d9d6;
+    --portal: #0e6a64;
+    --backend: #3a4656;
+    --km: #6a3d5d;
+    --fehler: #a4262c;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--papier);
+}
+body { margin: 0; }
+header {
+    display: flex; align-items: baseline; gap: 2rem;
+    padding: 0.9rem 1.5rem; color: #fff; background: var(--system);
+}
+header h1 { margin: 0; font-size: 1.15rem; font-weight: 600; }
+header nav { display: flex; gap: 1.2rem; font-size: 0.9rem; }
+header nav a { color: rgba(255, 255, 255, 0.8); text-decoration: none; }
+header nav a[aria-current] { color: #fff; border-bottom: 2px solid #fff; }
+body.portal { --system: var(--portal); }
+body.backend { --system: var(--backend); }
+body.km { --system: var(--km); }
+main { max-width: 56rem; padding: 1.5rem; display: grid; gap: 1.25rem; }
+section {
+    background: var(--flaeche); border: 1px solid var(--linie);
+    border-left: 4px solid var(--system); padding: 1rem 1.25rem;
+}
+section h2 { margin: 0 0 0.75rem; font-size: 1rem; }
+.zeile { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: end; }
+label { display: grid; gap: 0.2rem; font-size: 0.85rem; color: var(--leise); }
+input, select { font: inherit; padding: 0.35rem 0.5rem; border: 1px solid var(--linie); min-width: 12rem; }
+button {
+    font: inherit; padding: 0.4rem 0.9rem; cursor: pointer;
+    color: #fff; background: var(--system); border: 0;
+}
+button:disabled { opacity: 0.4; cursor: default; }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid #f2b705; outline-offset: 2px; }
+.wert { font-weight: 600; font-variant-numeric: tabular-nums; }
+.hinweis { color: var(--leise); font-size: 0.85rem; margin: 0.5rem 0 0; }
+.fehler { color: var(--fehler); margin: 0.5rem 0 0; min-height: 1.2em; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--linie); }
+th { font-size: 0.8rem; font-weight: 600; color: var(--leise); }
+td.betrag, th.betrag { text-align: right; }
+[hidden] { display: none !important; }

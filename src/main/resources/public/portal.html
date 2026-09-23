@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kundenportal</title>
+    <link rel="stylesheet" href="stil.css">
+</head>
+<body class="portal">
+<header>
+    <h1>Kundenportal</h1>
+    <nav>
+        <a href="portal.html" aria-current="page">Kundenportal</a>
+        <a href="backend.html">Backend</a>
+        <a href="km.html">Kundenmanagement</a>
+    </nav>
+</header>
+<main>
+    <section>
+        <h2>Kunde anlegen</h2>
+        <div class="zeile">
+            <label>Name <input id="name" value="Spedition Muster GmbH"></label>
+            <button id="kunde-anlegen">Kunde anlegen</button>
+        </div>
+        <p class="hinweis">Kundennummer: <span id="kundennummer" class="wert">–</span></p>
+    </section>
+
+    <section>
+        <h2>Fahrzeug und OBU</h2>
+        <div class="zeile">
+            <label>Kennzeichen <input id="kennzeichen" value="M-SH 1234"></label>
+            <button id="obu-installieren">OBU installieren</button>
+            <button id="obu-defekt-melden">OBU als defekt melden</button>
+        </div>
+        <p class="hinweis">OBU-Status: <span id="obu-status" class="wert">–</span></p>
+    </section>
+
+    <section>
+        <h2>Schaden an der OBU erfassen</h2>
+        <div class="zeile">
+            <label>Material <input id="material" value="Ersatz-OBU"></label>
+            <label>Preis in € <input id="preis" inputmode="decimal" value="120,00"></label>
+            <button id="schaden-erfassen">Schaden erfassen</button>
+        </div>
+        <p class="hinweis" id="schaden-meldung"></p>
+    </section>
+
+    <section>
+        <h2>Rechnungen</h2>
+        <table>
+            <thead><tr><th>Nummer</th><th>Art</th><th>Status</th><th class="betrag">Betrag</th></tr></thead>
+            <tbody id="rechnungen"></tbody>
+        </table>
+    </section>
+    <p id="fehler" class="fehler" role="alert"></p>
+</main>
+<script src="gemeinsam.js"></script>
+<script>
+    // Der Tab merkt sich den Kunden, damit er nach einem Seitenwechsel noch da ist.
+    let kundennummer = sessionStorage.getItem("kunde");
+
+    function zeigeKunde(kunde) {
+        kundennummer = kunde.kundennummer;
+        sessionStorage.setItem("kunde", kundennummer);
+        document.getElementById("kundennummer").textContent = kunde.kundennummer;
+        document.getElementById("obu-status").textContent = kunde.obuStatus || "keine OBU";
+    }
+
+    beiKlick("kunde-anlegen", async () =>
+        zeigeKunde(await api("POST", "/api/kunden", { name: document.getElementById("name").value })));
+
+    beiKlick("obu-installieren", async () => zeigeKunde(await api("POST", `/api/kunden/${kundennummer}/obu`,
+        { kennzeichen: document.getElementById("kennzeichen").value })));
+
+    beiKlick("obu-defekt-melden", async () =>
+        zeigeKunde(await api("POST", `/api/kunden/${kundennummer}/obu/defekt`)));
+
+    beiKlick("schaden-erfassen", async () => {
+        const material = document.getElementById("material").value;
+        const preis = document.getElementById("preis").value.replace(",", ".");
+        await api("POST", `/api/kunden/${kundennummer}/schaeden`, { material, preis });
+        document.getElementById("schaden-meldung").textContent = `Schaden erfasst: ${material}, ${betragText(preis)}`;
+    });
+
+    if (kundennummer) {
+        api("GET", `/api/kunden/${kundennummer}`).then(zeigeKunde, zeigeFehler);
+    }
+    alleSekunde(async () => {
+        if (kundennummer) {
+            const rechnungen = await api("GET", `/api/kunden/${kundennummer}/rechnungen`);
+            tabelleAktualisieren(document.getElementById("rechnungen"), rechnungen, rechnungsZeile);
+        }
+    });
+</script>
+</body>
+</html>
