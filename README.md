@@ -22,7 +22,7 @@ Gebaut wird erst im Wenn-Step mit `build(...)`.
 
 ## Befehle
 
-Voraussetzungen: Java 21 und Maven.
+Voraussetzungen: Java 17 und Maven.
 
 | Befehl | Was passiert |
 |---|---|

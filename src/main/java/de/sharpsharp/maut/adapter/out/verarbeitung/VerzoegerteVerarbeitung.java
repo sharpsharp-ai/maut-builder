@@ -26,7 +26,7 @@ public class VerzoegerteVerarbeitung implements Hintergrundverarbeitung {
 
     private void verzoegertAusfuehren(Runnable aufgabe) {
         try {
-            Thread.sleep(latenz);
+            Thread.sleep(latenz.toMillis());
             aufgabe.run();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
