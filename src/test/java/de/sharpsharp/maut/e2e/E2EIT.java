@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "classpath:features",
         glue = "de.sharpsharp.maut.e2e",
+        tags = "not @legacy",
         plugin = {"pretty", "summary"})
 public class E2EIT {
 }

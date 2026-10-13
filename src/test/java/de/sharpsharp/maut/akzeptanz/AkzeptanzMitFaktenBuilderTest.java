@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "classpath:features",
         glue = {"de.sharpsharp.maut.akzeptanz.gemeinsam", "de.sharpsharp.maut.akzeptanz.fakten"},
+        tags = "not @legacy",
         plugin = {"pretty", "summary"})
 public class AkzeptanzMitFaktenBuilderTest {
 }

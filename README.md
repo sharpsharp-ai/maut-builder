@@ -20,6 +20,7 @@ Proxy oder ohne Internet Chrome vorher installieren.
 |---|---|---|
 | `mvn test` | Unit-, Paritäts- und Akzeptanztests | Sekunden |
 | `mvn verify` | zusätzlich E2E-Tests über die GUI | + 15–20 s |
+| `mvn verify -Dit.test=LegacyGuiIT -Dsurefire.failIfNoSpecifiedTests=false -Dtest=NoSuchTest` | nur der GUI-Test im Legacy-Stil (34 Schritte über Portal, Backend, Kundenmanagement) | ca. 20 s |
 | `mvn verify -De2e.sichtbar=true` | E2E mit sichtbarem Browser | |
 | `mvn verify -Dmaut.batch.latenz=5000` | E2E mit langsamerem Batch | |
 | `mvn compile exec:java` | Anwendung starten, dann http://localhost:7272/portal.html | |
@@ -34,6 +35,8 @@ Drei Runner führen sie mit unterschiedlichem Glue-Code aus:
 | `AkzeptanzMitFaktenBuilderTest` | `akzeptanz.gemeinsam` + `akzeptanz.fakten` | **Variante 1:** Builder erzeugt Fakten, der echte Rechnungslauf rechnet (in-memory, ohne Warten) |
 | `AkzeptanzMitEndzustandBuilderTest` | `akzeptanz.gemeinsam` + `akzeptanz.endzustand` | **Variante 3:** Builder legt die fertige offene Rechnung direkt im Speicher ab |
 | `E2EIT` | `e2e` | Selenium klickt Kundenportal, Backend und Kundenmanagement durch, mit echter Wartezeit |
+
+Zusätzlich gibt es `features/legacy/reklamation-gui.feature`. Diese Fassung klickt jeden Schritt einzeln durch die Oberflächen, ohne Hilfsmethoden wie `rechnungslaufDurchfuehren()`. Sie läuft nur bei `mvn verify` (Runner `LegacyGuiIT`). Die übrigen Runner ignorieren sie per `tags = "not @legacy"`.
 
 Das funktioniert nur, weil die Schritte fachlich formuliert sind. Ein Schritt wie
 „I click the BBY sub menu item RECHNUNGSLAEUFE“ ließe sich ohne GUI gar nicht umsetzen.
